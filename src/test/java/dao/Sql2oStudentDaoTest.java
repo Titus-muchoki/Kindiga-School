@@ -75,6 +75,13 @@ public class Sql2oStudentDaoTest {
         assertEquals(0, studentDao.getAll().size());
         assertEquals(0, studentDao.getAll().size());
     }
+    @Test
+    public void clearAll() throws Exception{
+        Student student = setUpStudent();
+        Student otherStudent = setUpStudent();
+        studentDao.clearAll();
+        assertEquals(0, studentDao.getAll().size());
+    }
     //HELPERS
     public Student setUpStudent(){
         Student student = new Student("kajela","0717553340","titoyut@gamil.com");
