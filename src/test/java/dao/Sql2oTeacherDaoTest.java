@@ -10,7 +10,8 @@ import org.junit.Test;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class Sql2oTeacherDaoTest {
     private static Connection conn;
@@ -48,6 +49,36 @@ public class Sql2oTeacherDaoTest {
         Teacher teacher = setupTeacher();
         Teacher teacher1 = setupTeacher();
         assertNotEquals(0, teacherDao.getAll().size());
+    }
+    @Test
+    public void getAllStudentsByTeachersReturnsStudentsCorrectly() {
+        Teacher teacher = setupTeacher();
+        teacherDao.add(teacher);
+        int studentId = teacher.getId();
+        Student newStudent = new Student("", "" , "");
+        Student otherStudent = new Student("", "","");
+        Student  thirdStudent = new Student("","","");
+        studentDao.add(newStudent);
+        studentDao.add(otherStudent);
+        assertNotEquals(2, teacherDao.getAllTeachersByStudentId( studentId).size());
+        assertFalse(teacherDao.getAllTeachersByStudentId( studentId).contains(newStudent));
+        assertFalse(teacherDao.getAllTeachersByStudentId( studentId).contains(otherStudent));
+        assertFalse(teacherDao.getAllTeachersByStudentId( studentId).contains(thirdStudent)); //things are accurate!
+    }
+    @Test
+    public void deleteById() throws Exception{
+        Teacher teacher =setupTeacher();
+        Teacher otherTeacher = setupTeacher();
+        teacherDao.deleteById(teacher.getId());
+        assertEquals(1,teacherDao.getAll().size());
+        assertEquals(1,teacherDao.getAll().size());
+    }
+    @Test
+    public void clearAll()throws Exception{
+        Teacher teacher = setupTeacher();
+        Teacher teacher1 = setupTeacher();
+        teacherDao.clearAll();
+        assertEquals(0, teacherDao.getAll().size());
     }
     //HELPER
     public Teacher setupTeacher(){
