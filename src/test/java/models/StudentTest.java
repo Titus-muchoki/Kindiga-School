@@ -18,6 +18,11 @@ public class StudentTest {
     Student student = setupStudent();
     assertEquals("janet", student.getName());
     }
+    @Test
+    public void getPhoneNumberReturnsCorrectly(){
+        Student student = setupStudent();
+        assertEquals("0717553340", student.getPhoneNumber());
+    }
     // HELPERS
     public Student setupStudent(){
         return new Student("janet","0717553340","kajela@gmail.com");
