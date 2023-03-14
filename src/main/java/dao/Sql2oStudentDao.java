@@ -40,7 +40,11 @@ public class Sql2oStudentDao implements StudentDao{
 
     @Override
     public Student findById(int id) {
-        return null;
+        try (Connection con = sql2o.open()){
+            return con.createQuery("SELECT * FROM students")
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Student.class);
+        }
     }
 
     @Override
