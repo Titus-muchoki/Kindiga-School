@@ -1,15 +1,19 @@
 package models;
 
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.Assert.assertEquals;
+
 
 public class StudentTest {
-    @Test
+    @Before
     public void setUp(){
 
     }
-    @Test
+    @After
     public void tearDown(){
 
     }

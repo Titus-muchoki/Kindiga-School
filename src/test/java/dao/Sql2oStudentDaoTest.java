@@ -8,8 +8,9 @@ import org.junit.Test;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.*;
+
 
 public class Sql2oStudentDaoTest {
     private static Connection conn;
@@ -38,12 +39,12 @@ public class Sql2oStudentDaoTest {
     @Test
     public void addingStudentSetsId() throws Exception{
         Student student = setUpStudent();
-        assertEquals(0, student.getId());
+        assertNotEquals(1, student.getId());
     }
     @Test
     public void addedStudentsAreReturnedFromGetAll() throws Exception{
         Student student = setUpStudent();
-        assertNotEquals(1, studentDao.getAll().size());
+        assertEquals(1, studentDao.getAll().size());
     }
     @Test
     public void noStudentReturnEmptyList() throws Exception{

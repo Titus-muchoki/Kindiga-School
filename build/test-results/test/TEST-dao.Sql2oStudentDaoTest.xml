@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="dao.Sql2oStudentDaoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-03-14T10:50:57" hostname="kajela-HP-EliteBook-840-G3" time="0.594">
-  <properties/>
-  <testcase name="clearAll" classname="dao.Sql2oStudentDaoTest" time="0.594"/>
-  <system-out><![CDATA[clearing database
-connection closed
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
