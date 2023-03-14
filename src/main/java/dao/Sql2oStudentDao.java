@@ -3,6 +3,7 @@ package dao;
 import models.Student;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
+import org.sql2o.Sql2oException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -23,11 +24,9 @@ public class Sql2oStudentDao implements StudentDao{
                     .executeUpdate()
                     .getKey();
             student.setId(id);
-        } catch (Exception ex){
+        } catch (Sql2oException ex){
             System.out.println(ex);
         }
-
-
     }
 
     @Override
@@ -49,7 +48,16 @@ public class Sql2oStudentDao implements StudentDao{
 
     @Override
     public void update(int id, String name, String phoneNumber, String email) {
-
+    String sql = "UPDATE students SET(name, phonenumber, email)VALUES(:name, :phoneNumber, :email)";
+     try(Connection con = sql2o.open()) {
+        con.createQuery(sql)
+               .addParameter("name", name)
+               .addParameter("phoneNumber", phoneNumber)
+               .addParameter("email", email)
+               .executeUpdate();
+    }catch (Sql2oException ex){
+         System.out.println(ex);
+     }
     }
 
     @Override
