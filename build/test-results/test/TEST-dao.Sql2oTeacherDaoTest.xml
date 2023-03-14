@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dao.Sql2oTeacherDaoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-03-14T13:18:54" hostname="kajela-HP-EliteBook-840-G3" time="0.523">
+  <properties/>
+  <testcase name="addingTeacherSetsId" classname="dao.Sql2oTeacherDaoTest" time="0.523"/>
+  <system-out><![CDATA[clearing database
+connection closed
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

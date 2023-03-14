@@ -1,10 +1,16 @@
 package dao;
 
+import models.Student;
+import models.Teacher;
+import models.Unit;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.Test;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
+
+import static org.junit.Assert.assertNotEquals;
 
 public class Sql2oTeacherDaoTest {
     private static Connection conn;
@@ -32,4 +38,27 @@ public class Sql2oTeacherDaoTest {
         conn.close(); // close connection once after this entire test file is finished
         System.out.println("connection closed");
     }
+    @Test
+    public void addingTeacherSetsId() throws Exception {
+        Teacher teacher = setupTeacher();
+        assertNotEquals(1, teacher.getId());
+    }
+    @Test
+    public void getAll() throws Exception {
+        Teacher teacher = setupTeacher();
+        Teacher teacher1 = setupTeacher();
+        assertNotEquals(0, teacherDao.getAll().size());
+    }
+    //HELPER
+    public Teacher setupTeacher(){
+        Teacher teacher = new Teacher("muchoki","any",1);
+        teacherDao.add(teacher);
+        return teacher;
+    }
+    public Student setUpStudent(){
+        Student student = new Student("kajela","0717553340","titoyut@gamil.com");
+        studentDao.add(student);
+        return student;
+    }
+
 }
