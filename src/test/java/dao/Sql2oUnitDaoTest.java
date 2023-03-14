@@ -64,6 +64,21 @@ public class Sql2oUnitDaoTest {
         assertFalse(unitDao.getAllUnitsByStudentId( studentId).contains(otherStudent));
         assertFalse(unitDao.getAllUnitsByStudentId( studentId).contains(thirdStudent)); //things are accurate!
     }
+    @Test
+    public void deleteById() throws Exception{
+        Unit unit = setupUnits();
+        Unit otherUnit = setupUnits();
+        unitDao.deleteById(unit.getId());
+        assertEquals(1,unitDao.getAll().size());
+        assertEquals(1,unitDao.getAll().size());
+    }
+    @Test
+    public void clearAll()throws Exception{
+        Unit unit = setupUnits();
+        Unit unit1 = setupUnits();
+        unitDao.clearAll();
+        assertEquals(0, unitDao.getAll().size());
+    }
     //HELPERS
     public Unit  setupUnits(){
         Unit unit = new Unit("math","english","kiswa","scince","socialStudy","cre",1);
