@@ -34,6 +34,12 @@ public class StudentTest {
         student.setName("tito");
         assertEquals("tito", student.getName());
     }
+    @Test
+    public void setPhoneNumberSetsCorrectly(){
+        Student student = setupStudent();
+        student.setPhoneNumber("0776509158");
+        assertEquals("0776509158", student.getPhoneNumber());
+    }
     // HELPERS
     public Student setupStudent(){
         return new Student("janet","0717553340","kajela@gmail.com");
