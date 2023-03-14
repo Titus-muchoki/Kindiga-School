@@ -42,4 +42,60 @@ public class Unit {
     public void setMath(String math) {
         this.math = math;
     }
+
+    public String getEnglish() {
+        return english;
+    }
+
+    public void setEnglish(String english) {
+        this.english = english;
+    }
+
+    public String getKiswahili() {
+        return kiswahili;
+    }
+
+    public void setKiswahili(String kiswahili) {
+        this.kiswahili = kiswahili;
+    }
+
+    public String getScience() {
+        return science;
+    }
+
+    public void setScience(String science) {
+        this.science = science;
+    }
+
+    public String getSocialStudy() {
+        return socialStudy;
+    }
+
+    public void setSocialStudy(String socialStudy) {
+        this.socialStudy = socialStudy;
+    }
+
+    public String getCre() {
+        return cre;
+    }
+
+    public void setCre(String cre) {
+        this.cre = cre;
+    }
+
+    public int getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
