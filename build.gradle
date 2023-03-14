@@ -23,6 +23,6 @@ dependencies {
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.9'
 }
 
-test {
-    useJUnitPlatform()
-}
+//test {
+//    useJUnitPlatform()
+//}

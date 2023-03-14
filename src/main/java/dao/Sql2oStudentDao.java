@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class Sql2oStudentDao implements StudentDao{
-    public Sql2o sql2o;
+    private final Sql2o sql2o;
     public Sql2oStudentDao(Sql2o sql2o){
         this.sql2o= sql2o;
     }
@@ -48,13 +48,14 @@ public class Sql2oStudentDao implements StudentDao{
 
     @Override
     public void update(int id, String name, String phoneNumber, String email) {
-    String sql = "UPDATE students SET(name, phonenumber, email)VALUES(:name, :phoneNumber, :email)";
+    String sql = "UPDATE students SET(name, phonenumber, email)=(:name, :phoneNumber, :email)";
      try(Connection con = sql2o.open()) {
         con.createQuery(sql)
                .addParameter("name", name)
                .addParameter("phoneNumber", phoneNumber)
                .addParameter("email", email)
-               .executeUpdate();
+                .addParameter("id", id)
+                .executeUpdate();
     }catch (Sql2oException ex){
          System.out.println(ex);
      }
