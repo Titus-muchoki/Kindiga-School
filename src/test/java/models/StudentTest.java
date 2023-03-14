@@ -28,6 +28,12 @@ public class StudentTest {
         Student student = setupStudent();
         assertEquals("kajela@gmail.com", student.getEmail());
     }
+    @Test
+    public void setNameSetsNameCorrectly(){
+        Student student = setupStudent();
+        student.setName("tito");
+        assertEquals("tito", student.getName());
+    }
     // HELPERS
     public Student setupStudent(){
         return new Student("janet","0717553340","kajela@gmail.com");
