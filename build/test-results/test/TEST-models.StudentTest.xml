@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="models.StudentTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-03-14T07:57:43" hostname="kajela-HP-EliteBook-840-G3" time="0.031">
+<testsuite name="models.StudentTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-03-14T08:00:19" hostname="kajela-HP-EliteBook-840-G3" time="0.036">
   <properties/>
-  <testcase name="setPhoneNumberSetsCorrectly()" classname="models.StudentTest" time="0.031"/>
+  <testcase name="setEmailSetsEmailCorrectly()" classname="models.StudentTest" time="0.036"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

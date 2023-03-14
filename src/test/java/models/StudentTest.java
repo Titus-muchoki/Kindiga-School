@@ -40,6 +40,12 @@ public class StudentTest {
         student.setPhoneNumber("0776509158");
         assertEquals("0776509158", student.getPhoneNumber());
     }
+    @Test
+    public void setEmailSetsEmailCorrectly(){
+        Student student = setupStudent();
+        student.setEmail("tito@gmail.com");
+        assertEquals("tito@gmail.com", student.getEmail());
+    }
     // HELPERS
     public Student setupStudent(){
         return new Student("janet","0717553340","kajela@gmail.com");
