@@ -66,6 +66,15 @@ public class Sql2oStudentDaoTest {
         assertEquals("titoyut@gamil.com", student1.getEmail());
         assertNotEquals(1, student1.getId());
     }
+    @Test
+    public void deleteByIdDeletesTheCorrectStudent() throws Exception{
+        Student student = setUpStudent();
+        Student otherStudent = setUpStudent();
+        studentDao.deleteById(student.getId());
+        studentDao.deleteById(otherStudent.getId());
+        assertEquals(0, studentDao.getAll().size());
+        assertEquals(0, studentDao.getAll().size());
+    }
     //HELPERS
     public Student setUpStudent(){
         Student student = new Student("kajela","0717553340","titoyut@gamil.com");

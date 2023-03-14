@@ -63,7 +63,7 @@ public class Sql2oStudentDao implements StudentDao{
 
     @Override
     public void deleteById(int id) {
-        String sql = "DELETE * FROM students WHERE id = :id";
+        String sql = "DELETE from students WHERE id = :id";
     try (Connection con = sql2o.open()){
         con.createQuery(sql)
                 .addParameter("id", id)
