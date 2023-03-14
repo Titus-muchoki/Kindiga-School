@@ -23,6 +23,11 @@ public class StudentTest {
         Student student = setupStudent();
         assertEquals("0717553340", student.getPhoneNumber());
     }
+    @Test
+    public void getEmailReturnsEmailCorrectly(){
+        Student student = setupStudent();
+        assertEquals("kajela@gmail.com", student.getEmail());
+    }
     // HELPERS
     public Student setupStudent(){
         return new Student("janet","0717553340","kajela@gmail.com");
