@@ -13,8 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static spark.Spark.get;
-import static spark.Spark.staticFileLocation;
+import static spark.Spark.*;
 
 public class App {
     public static void main(String[] args) {
@@ -38,5 +37,26 @@ public class App {
             model.put("students", students);
             return new ModelAndView(model, "layout.hbs");
         }, new HandlebarsTemplateEngine());
+        //get: show a form to create a new student
+
+        get("/students/new", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Student> students = studentDao.getAll(); //refresh list of links for navbar
+            model.put("students", students);
+            return new ModelAndView(model, "student-form.hbs"); //new layout
+        }, new HandlebarsTemplateEngine());
+        //post: process a form to create a new student
+
+        post("/students", (req, res) -> { //new
+            Map<String, Object> model = new HashMap<>();
+            String name = req.queryParams("name");
+            String phoneNumber = req.queryParams("phoneNumber");
+            String email = req.queryParams("email");
+            Student  newStudent = new Student(name,phoneNumber,email);
+            studentDao.add(newStudent);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
+
     }
 }

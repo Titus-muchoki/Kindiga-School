@@ -1,0 +1,35 @@
+{{#partial "content"}}
+    {{#if editActivity}}
+        <h1>Edit this student!</h1>
+        <form action="/students/{{student.id}}" method="post">
+            <br>
+            <label for="name">Edit this student name</label>
+            <input id="name" name="name" type="text" value="{{student.name}}">
+            <br>
+            <label for="phoneNumber">Edit this student phoneNumber</label>
+            <input id="phoneNumber" name="phoneNumber" type="text" value="{{student.phoneNumber}}">
+            <br>
+            <label for="email">Edit this student email</label>
+            <input id="email" name="email" type="text" value="{{student.email}}">
+            <br>
+            <button type="submit" class="btn btn-default">Go!</button>
+        </form>
+    {{else}}
+        <h1>Add a new student!</h1>
+        <form action="/students" method="post">
+
+            <label for="name">student name</label>
+            <input id="name" name="name" type="text">
+            <br>
+            <label for="phoneNumber">student phoneNumber</label>
+            <input id="phoneNumber" name="phoneNumber" type="number">
+            <br>
+            <label for="email">student email</label>
+            <input id="email" name="email" type="text">
+            <br>
+            <button type="submit" class="btn btn-default">Go!</button>
+        </form>
+    {{/if}}
+{{/partial}}
+
+{{> layout.hbs}}

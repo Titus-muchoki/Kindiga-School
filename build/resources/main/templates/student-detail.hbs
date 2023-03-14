@@ -1,0 +1,16 @@
+{{#partial "content"}}
+    <h1>{{ student.name}}{{student.phoneNumber}}{{student.email}}</h1>
+    <p>Here are all the student listed with their names:</p>
+    <ul>
+        {{#each students}}
+            <li>
+                <p><a href="/students/{{student.name}}{{student.phoneNumber}}{{student.email}}"></a></p>
+            </li>
+        {{/each}}
+    </ul>
+    <p>
+        <a href="/students/{{student.id}}/edit">Edit tis airport</a><br>
+    </p>
+{{/partial}}
+
+{{> layout.hbs}}
