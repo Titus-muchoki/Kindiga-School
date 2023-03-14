@@ -48,7 +48,7 @@ public class Sql2oStudentDao implements StudentDao{
 
     @Override
     public void update(int id, String name, String phoneNumber, String email) {
-    String sql = "UPDATE students SET(name, phonenumber, email)=(:name, :phoneNumber, :email)";
+    String sql = "UPDATE students SET(name, phonenumber, email)=(:name, :phoneNumber, :email)WHERE id = :id";
      try(Connection con = sql2o.open()) {
         con.createQuery(sql)
                .addParameter("name", name)

@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class Sql2oStudentDaoTest {
@@ -54,6 +55,16 @@ public class Sql2oStudentDaoTest {
         Student otherStudent = setUpStudent();
         assertEquals(testStudent, studentDao.findById(testStudent.getId()));
         assertEquals(otherStudent, studentDao.findById(otherStudent.getId()));
+    }
+    @Test
+    public void updateCorrectlyUpdatesAllFields() throws Exception{
+        Student student = setUpStudent();
+        studentDao.update(student.getId(),"kajela", "0717553340","titoyut@gamil.com");
+        Student student1 = studentDao.findById(student.getId());
+        assertEquals("kajela", student1.getName());
+        assertEquals("0717553340", student1.getPhoneNumber());
+        assertEquals("titoyut@gamil.com", student1.getEmail());
+        assertNotEquals(1, student1.getId());
     }
     //HELPERS
     public Student setUpStudent(){
