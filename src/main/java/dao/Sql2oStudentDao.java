@@ -17,7 +17,7 @@ public class Sql2oStudentDao implements StudentDao{
 
     @Override
     public void add(Student student) {
-        String sql = "INSERT INTO students ( name, phonenummber, email)VALUES(:name, :phoneNumber, :email)";
+        String sql = "INSERT INTO students ( name, phonenumber, email)VALUES(:name, :phoneNumber, :email)";
         try(Connection con = sql2o.open()) {
             int id = (int) con.createQuery(sql, true)
                     .bind(student)

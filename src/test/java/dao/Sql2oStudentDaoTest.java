@@ -48,6 +48,13 @@ public class Sql2oStudentDaoTest {
     public void noStudentReturnEmptyList() throws Exception{
         assertEquals(0, studentDao.getAll().size());
     }
+    @Test
+    public void findByIdReturnsCorrectStudent() throws Exception{
+        Student testStudent = setUpStudent();
+        Student otherStudent = setUpStudent();
+        assertEquals(testStudent, studentDao.findById(testStudent.getId()));
+        assertEquals(otherStudent, studentDao.findById(otherStudent.getId()));
+    }
     //HELPERS
     public Student setUpStudent(){
         Student student = new Student("kajela","0717553340","titoyut@gamil.com");
