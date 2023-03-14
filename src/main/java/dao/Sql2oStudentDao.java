@@ -40,7 +40,7 @@ public class Sql2oStudentDao implements StudentDao{
     @Override
     public Student findById(int id) {
         try (Connection con = sql2o.open()){
-            return con.createQuery("SELECT * FROM students")
+            return con.createQuery("SELECT * FROM students WHERE id = :id")
                     .addParameter("id", id)
                     .executeAndFetchFirst(Student.class);
         }
@@ -62,11 +62,24 @@ public class Sql2oStudentDao implements StudentDao{
 
     @Override
     public void deleteById(int id) {
-
+        String sql = "DELETE * FROM students WHERE id = :id";
+    try (Connection con = sql2o.open()){
+        con.createQuery(sql)
+                .addParameter("id", id)
+                .executeUpdate();
+    } catch (Sql2oException ex){
+        System.out.println(ex);
+    }
     }
 
     @Override
     public void clearAll() {
-
+    String sql = "DELETE from students";
+    try(Connection con = sql2o.open()) {
+        con.createQuery(sql)
+                .executeUpdate();
+    }catch (Sql2oException ex){
+        System.out.println(ex);
+    }
     }
 }
