@@ -1,4 +1,13 @@
 {{#partial "content"}}
+    <h1> List of all students</h1>
+
+    {{#if students}}
+        {{#each students }}
+            <p><a href="/students/{{id}}">{{name}}{{phoneNumber}}{{email}}</a></p>
+        {{/each}}
+    {{else}}
+        <p>No student!</p>
+    {{/if}}
 
 {{/partial}}
 {{> layout.hbs}}

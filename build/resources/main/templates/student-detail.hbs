@@ -1,16 +1,22 @@
 {{#partial "content"}}
-    <h1>{{ student.name}}{{student.phoneNumber}}{{student.email}}</h1>
-    <p>Here are all the student listed with their names:</p>
-    <ul>
-        {{#each students}}
-            <li>
-                <p><a href="/students/{{student.name}}{{student.phoneNumber}}{{student.email}}"></a></p>
-            </li>
-        {{/each}}
-    </ul>
+
+    <p>Description:{{ student.id }} </p>
+<!--    <p>Category of this product: {{ category.amount }}</p>-->
+    <h5>Created At:</h5>
+    <!--    <p> {{ booking.createdAt }}</p>-->
+    <h5>Product status:
+        {{#if product.published }}
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>  Completed
+        {{else}}
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Open
+        {{/if}}
+    </h5>
+
     <p>
-        <a href="/students/{{student.id}}/edit">Edit tis airport</a><br>
+        <a href="/students/{{student.id}}/edit">Edit this booking</a><br>
+<!--        <a href="/categories/{{booking.categoryId}}/bookings/{{booking.id}}/delete">DELETE this booking</a>-->
     </p>
+
 {{/partial}}
 
 {{> layout.hbs}}

@@ -35,7 +35,7 @@ public class App {
             model.put("teachers", teachers);
             List<Student> students = studentDao.getAll();
             model.put("students", students);
-            return new ModelAndView(model, "layout.hbs");
+            return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
         //get: show a form to create a new student
 
@@ -56,6 +56,17 @@ public class App {
             studentDao.add(newStudent);
             res.redirect("/");
             return null;
+        }, new HandlebarsTemplateEngine());
+
+        //        //get: show an individual booking that is nested in a category
+
+        get("/students/:student_id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfStudentToFind = Integer.parseInt(req.params("student_id")); //pull id - must match route segment
+            Student foundStudent = studentDao.findById(idOfStudentToFind); //use it to find task
+            model.put("student", foundStudent); //add it to model for template to display
+//            model.put("students", studentDao.getAll()); //refresh list of links for navbar
+            return new ModelAndView(model, "student-detail.hbs"); //individual task page.
         }, new HandlebarsTemplateEngine());
 
     }
