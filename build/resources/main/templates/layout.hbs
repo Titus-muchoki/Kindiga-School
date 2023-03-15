@@ -4,103 +4,71 @@
 <head>
     <title>{{#block "title"}}Blog{{/block}}</title>
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
-    <style>
-        #img1{
-            float: right;
-            width: 600px;
-            height: 590px;
-            margin-right: 20px;
-            margin-top: -270px;
-
-        }
-        #img2{
-            float: left;
-            width: 600px;
-            height: 330px;
-            margin-top: -10px;
-        }
-        #p1{
-            color: #ce0b0b;
-<!--            line-height: 1.8;-->
-
-
-        }
-    </style>
 </head>
 <body>
 <ul class="nav nav-tabs">
     <li role="presentation" class="active"><a href="/">Home</a></li>
     <li role="presentation"><a href="/students/new">Add a New student</a></li>
-<!--    <li role="presentation"><a href="/features/new">Add a New features</a></li>-->
-<!--    <li role="presentation"><a href="/reviews/new">Add a New reviews</a></li>-->
-<!--    <li role="presentation"><a href="/activities/new">Add a New activities</a></li>-->
+    <li role="presentation"><a href="/units/new">Add a New units</a></li>
+    <li role="presentation"><a href="/reviews/new">Add a New reviews</a></li>
 
     <li role="presentation" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            Airports  Menu <span class="caret"></span>
+            Students Menu <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-            {{#if airports}}
-                {{#each airports}}
-                    <li><a href="/airports/{{id}}">{{name}}<br>
-                        {{code}}<br>
-                        {{city}}<br>
-                        {{distance}}
-                    </a></li>
-                {{/each}}
-                <li><a href="/airports/new">Add an airport</a></li>
-            {{else}}
-                <!--                <li><a href="/airports/new">Add an airport</a></li>-->
-            {{/if}}
+                    {{#if students}}
+                        {{#each students}}
+                    <li><a href="/students/{{id}}">{{name}}<br>{{phoneNumber}}<br>{{email}}</a></li>
+                        {{/each}}
+<!--                <li><a href="/categories/new">Add a Category</a></li>-->
+                    {{else}}
+<!--                <li><a href="/categories/new">Add a Category</a></li>-->
+                    {{/if}}
         </ul>
     </li>
     <li role="presentation" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            Activity  Menu <span class="caret"></span>
+            Units  Menu <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-            {{#if activities}}
-                {{#each activities}}
-                    <li><a href="/activities/{{id}}">{{inspectionDate}}<br>
-                        {{inspectionArea}}<br>
-                        {{inspectionOutcome}}<br>
-                        {{serviceAbilityStatus}}<br>
-                        {{airportId}}
+            {{#if units}}
+                {{#each units}}
+                    <li><a href="/units/{{id}}">{{math}}<br>
+                        {{english}}<br>
+                        {{kiswahili}}<br>
+                        {{science}}<br>
+                        {{socialStudy}}<br>
+                        {{cre}}<br>
+                        {{studentId}}
                     </a></li>
                 {{/each}}
-                <li><a href="/activities/new">Add an activity</a></li>
+<!--                <li><a href="/units/new">Add a unit</a></li>-->
             {{else}}
                 <!--                <li><a href="/activities/new">Add an activity</a></li>-->
             {{/if}}
         </ul>
     </li>
-    <li role="presentation" class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            Features  Menu <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-            {{#if features}}
-                {{#each features}}
-                    <li><a href="/features/{{id}}">{{widthRunWay}}<br>
-                        {{lengthRunWay}}<br>
-                        {{strengthRunWay}}<br>
-                        {{airportId}}
-                    </a></li>
-                {{/each}}
-                <li><a href="/features/new">Add a feature</a></li>
-            {{else}}
-                <!--                <li><a href="/features/new">Add a feature</a></li>-->
-            {{/if}}
-        </ul>
-    </li>
 </ul>
 
-<br>
-<div class="container-fluid">
-    <h2>WELCOME TO KINDIGA SCHOOL</h2>
-    <div class="card" style="width: 18rem;">
-        <img src="./images/k1.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
+<div class="container">
+    <!--begin main template-->
+    <div class="page-header">
+                <img src="/images/k1.jpg" width="100%" alt="">
+        <!--        <h1>Welcome to Kilimani airbnb accommodations <small>luxury and comfort .</small></h1>-->
+    </div>
+    <div class="col-md-12">
+        {{#block "content"}}
+
+        {{/block}}
+
+    </div>
+</div>
+<!--end main template-->
+{{#block "footer"}}
+    <footer class="footer">
+        <div class="container">
+            <hr>
             <h3 class="card-title">ABOUT</h3>
             <P id="p1">Kindiga primary school is located in kiambu County in Githunguri constituency
                 it hast been ranked the best for the last ten years KCPE examination results in the constituency <br>
@@ -108,36 +76,6 @@
                 in their day to day life. <br>
                 This is what differentiate our student who study at Kingiga primary <br>
                 from other students </P>
-        </div>
-    </div>
-
-    <img id="img1"   src="./images/k.jpg" alt="">
-     <img  id="img2" src="./images/k3.jpg" alt="">
-    <br>
-    <div class="container">
-        <!--begin main template-->
-        <div class="page-header">
-<!--            <img src="/images/shutterstock-562317157.webp" width="70%" alt="">-->
-<!--            <h1>A list of airports  <small>around you.</small></h1>-->
-        </div>
-        <div class="col-md-12">
-            {{#block "content"}}
-
-            {{/block}}
-
-        </div>
-    </div>
-
-</div>
-<!--end main template-->
-{{#block "footer"}}
-    <footer class="footer">
-        <div class="container">
-            <hr>
-            <!--            <p class="text-muted">-->
-            <!--                <a href="/categories/delete">delete all categories & bookings</a><br>-->
-            <!--                <a href="/bookings/delete">delete all bookings</a>-->
-            <!--            </p>-->
         </div>
     </footer>
     </body>

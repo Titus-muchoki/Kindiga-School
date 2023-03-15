@@ -79,5 +79,42 @@ public class App {
             model.put("editStudents", true);
             return new ModelAndView(model, "student-form.hbs");
         }, new HandlebarsTemplateEngine());
+
+        //post: process a form to update  a  student
+
+        post("/students/:id", (req, res) -> { //URL to update task on POST route
+            Map<String, Object> model = new HashMap<>();
+            int studentToEditId = Integer.parseInt(req.params("id"));
+            String newName = req.queryParams("name");
+            String newPhoneNumber = req.queryParams("phoneNumber");
+            String newEmail = req.queryParams("email");
+            studentDao.update(studentToEditId,newName,newPhoneNumber,newEmail);  // remember the hardcoded categoryId we placed? See what we've done to/with it?
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
+        //get: show a form to create a new student
+
+        get("/units/new", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Unit> units = unitDao.getAll(); //refresh list of links for navbar
+            model.put("units", units);
+            return new ModelAndView(model, "unit-form.hbs"); //new layout
+        }, new HandlebarsTemplateEngine());
+        //post: process a form to create a new student
+
+        post("/units", (req, res) -> { //new
+            Map<String, Object> model = new HashMap<>();
+            String math = req.queryParams("math");
+            String english = req.queryParams("english");
+            String kiswahili = req.queryParams("kiswahili");
+            String science = req.queryParams("science");
+            String socialStudy = req.queryParams("socialStudy");
+            String cre = req.queryParams("cre");
+            int studentId = Integer.parseInt(req.queryParams("studentId"));
+            Unit  newUnit = new Unit(math,english,kiswahili,science,socialStudy,cre,studentId);
+            unitDao.add(newUnit);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
     }
 }

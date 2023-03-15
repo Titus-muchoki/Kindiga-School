@@ -1,0 +1,16 @@
+{{#partial "content"}}
+    <h1>{{unit.math}}{{unit.english}}{{unit.kiswahili}}{{unit.science}}{{unit.socialStudy}}{{unit.cre}}{{unit.studentId}}</h1>
+    <p>Here are all the units listed with the students score:</p>
+    <ul>
+        {{#each units}}
+            <li>
+                <p><a href="/units/{{unit.studentId}}/students/{{id}}">{{math}}{{english}} {{kiswahili}}{{science}}{{socialStudy}}{{cre}}{{studentId}}</a></p>
+            </li>
+        {{/each}}
+    </ul>
+    <button>    <a href="/units/{{unit.studentId}}/edit">Edit units</a><br>
+    </button>
+    <a href="/units/{{unit.studentId}}/delete">DELETE this units</a>
+{{/partial}}
+
+{{> layout.hbs}}

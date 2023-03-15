@@ -1,0 +1,59 @@
+{{#partial "content"}}
+    {{#if editUnit}}
+        <h1>Edit this unit!</h1>
+        <form action="/units/{{unit.studentId}}" method="post">
+            <br>
+            <label for="math">Edit this unit marks</label>
+            <input id="math" name="math" type="text" value="{{unit.math}}">
+            <br>
+            <label for="english">Edit this unit marks</label>
+            <input id="english" name="english" type="text" value="{{unit.english}}">
+            <br>
+            <label for="kiswahili">Edit this unit marks</label>
+            <input id="kiswahili" name="kiswahili" type="text" value="{{unit.kiswahili}}">
+            <br>
+            <label for="science">Edit this unit marks</label>
+            <input id="science" name="science" type="text" value="{{unit.science}}">
+            <br>
+            <label for="socialStudy">Edit this unit marks</label>
+            <input id="socialStudy" name="socialStudy" type="text" value="{{unit.socialStudy}}">
+            <br>
+            <label for="cre">Edit this unit marks</label>
+            <input id="cre" name="cre" type="text" value="{{unit.cre}}">
+            <br>
+            <label for="studentId">Edit this unit studentId</label>
+            <input id="studentId" name="studentId" type="text" value="{{unit.studentId}}">
+            <br>
+            <button type="submit" class="btn btn-default">Go!</button>
+        </form>
+    {{else}}
+        <h1>Add a new unit!</h1>
+        <form action="/units" method="post">
+
+            <label for="math">unit math</label>
+            <input id="math" name="math" type="text">
+            <br>
+            <label for="english">unit english</label>
+            <input id="english" name="english" type="text">
+            <br>
+            <label for="kiswahili">unit kiswahili</label>
+            <input id="kiswahili" name="kiswahili" type="text">
+            <br>
+            <label for="science">unit science</label>
+            <input id="science" name="science" type="text">
+            <br>
+            <label for="socialStudy">unit socialStudy</label>
+            <input id="socialStudy" name="socialStudy" type="text">
+            <br>
+            <label for="cre">unit cre</label>
+            <input id="cre" name="cre" type="text">
+            <br>
+            <label for="studentId">unit studentId</label>
+            <input id="studentId" name="studentId" type="text">
+
+            <button type="submit" class="btn btn-default">Go!</button>
+        </form>
+    {{/if}}
+{{/partial}}
+
+{{> layout.hbs}}
