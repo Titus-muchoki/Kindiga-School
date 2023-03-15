@@ -65,9 +65,19 @@ public class App {
             int idOfStudentToFind = Integer.parseInt(req.params("student_id")); //pull id - must match route segment
             Student foundStudent = studentDao.findById(idOfStudentToFind); //use it to find task
             model.put("student", foundStudent); //add it to model for template to display
-//            model.put("students", studentDao.getAll()); //refresh list of links for navbar
+            model.put("students", studentDao.getAll()); //refresh list of links for navbar
             return new ModelAndView(model, "student-detail.hbs"); //individual task page.
         }, new HandlebarsTemplateEngine());
 
+        //get: show a form to update a student
+
+        get("/students/:id/edit", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+             Student   student = studentDao.findById(Integer.parseInt(req.params("id")));
+            studentDao.getAll();
+            model.put("student",student);
+            model.put("editStudents", true);
+            return new ModelAndView(model, "student-form.hbs");
+        }, new HandlebarsTemplateEngine());
     }
 }

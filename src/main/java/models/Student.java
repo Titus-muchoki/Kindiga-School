@@ -19,7 +19,6 @@ public class Student {
         Student student = (Student) o;
         return id == student.id && Objects.equals(name, student.name) && Objects.equals(phoneNumber, student.phoneNumber) && Objects.equals(email, student.email);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(name, phoneNumber, email, id);
