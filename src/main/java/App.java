@@ -160,13 +160,13 @@ public class App {
         }, new HandlebarsTemplateEngine());
         //        //get: show an individual unit that is nested in a student
 
-        get("/units/:unit_id", (req, res) -> {
+        get("/teachers/:teacher_id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfUnitToFind = Integer.parseInt(req.params("unit_id")); //pull id - must match route segment
-            List<Unit> foundUnit = unitDao.getAllUnitsByStudentId(idOfUnitToFind);//use it to find task
-            model.put("unit", foundUnit); //add it to model for template to display
-            model.put("units", unitDao.getAll()); //refresh list of links for navbar
-            return new ModelAndView(model, "unit-detail.hbs"); //individual task page.
+            int idOfTeacherToFind = Integer.parseInt(req.params("teacher_id")); //pull id - must match route segment
+            List<Teacher> foundTeacher = teacherDao.getAllTeachersByStudentId(idOfTeacherToFind);//use it to find task
+            model.put("teacher", foundTeacher); //add it to model for template to display
+            model.put("teachers", teacherDao.getAll()); //refresh list of links for navbar
+            return new ModelAndView(model, "teacher-detail.hbs"); //individual task page.
         }, new HandlebarsTemplateEngine());
 
 
