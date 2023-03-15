@@ -116,5 +116,27 @@ public class App {
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
+        //get: show a form to update a student
+
+        get("/units/:id/edit", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Unit> units = unitDao.getAllUnitsByStudentId(Integer.parseInt("id"));
+            unitDao.getAll();
+            model.put("unit",units);
+            model.put("editUnit", true);
+            return new ModelAndView(model, "unit-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        //        //get: show an individual unit that is nested in a student
+
+        get("/units/:unit_id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfUnitToFind = Integer.parseInt(req.params("unit_id")); //pull id - must match route segment
+            List<Unit> foundUnit = unitDao.getAllUnitsByStudentId(idOfUnitToFind);//use it to find task
+            model.put("unit", foundUnit); //add it to model for template to display
+            model.put("units", unitDao.getAll()); //refresh list of links for navbar
+            return new ModelAndView(model, "unit-detail.hbs"); //individual task page.
+        }, new HandlebarsTemplateEngine());
+
     }
 }
