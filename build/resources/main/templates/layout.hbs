@@ -10,7 +10,7 @@
     <li role="presentation" class="active"><a href="/">Home</a></li>
     <li role="presentation"><a href="/students/new">Add a New student</a></li>
     <li role="presentation"><a href="/units/new">Add a New units</a></li>
-    <li role="presentation"><a href="/reviews/new">Add a New reviews</a></li>
+    <li role="presentation"><a href="/teachers/new">Add a New teachers</a></li>
 
     <li role="presentation" class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -48,6 +48,21 @@
                 <!--                <li><a href="/activities/new">Add an activity</a></li>-->
             {{/if}}
         </ul>
+    </li>
+  <li role="presentation" class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        Teachers Menu <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        {{#if teachers}}
+            {{#each teachers}}
+                <li><a href="/teachers/{{id}}">{{name}}<br>{{comment}}<br>{{studentId}}</a></li>
+            {{/each}}
+            <!--                <li><a href="/categories/new">Add a Category</a></li>-->
+        {{else}}
+            <!--                <li><a href="/categories/new">Add a Category</a></li>-->
+        {{/if}}
+    </ul>
     </li>
 </ul>
 

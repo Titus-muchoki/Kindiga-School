@@ -1,0 +1,35 @@
+{{#partial "content"}}
+    {{#if editStudents}}
+        <h1>Edit this student!</h1>
+        <form action="/teachers/{{teacher.studentId}}" method="post">
+            <br>
+            <label for="name">Edit this teacher name</label>
+            <input id="name" name="name" type="text" value="{{teacher.name}}">
+            <br>
+            <label for="comment">Edit this teacher comment</label>
+            <input id="comment" name="comment" type="text" value="{{teacher.comment}}">
+            <br>
+            <label for="studentId">Edit this teacher studentId</label>
+            <input id="studentId" name="studentId" type="text" value="{{teacher.studentId}}">
+            <br>
+            <button type="submit" class="btn btn-default">Go!</button>
+        </form>
+    {{else}}
+        <h1>Add a new student!</h1>
+        <form action="/teachers" method="post">
+
+            <label for="name">teacher name</label>
+            <input id="name" name="name" type="text">
+            <br>
+            <label for="comment">teacher comment</label>
+            <input id="comment" name="comment" type="text">
+            <br>
+            <label for="studentId">unit studentId</label>
+            <input id="studentId" name="studentId" type="text">
+            <br>
+            <button type="submit" class="btn btn-default">Go!</button>
+        </form>
+    {{/if}}
+{{/partial}}
+
+{{> layout.hbs}}
