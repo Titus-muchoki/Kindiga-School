@@ -1,12 +1,10 @@
 {{#partial "content"}}
-    <!--    <h1>unit {{unit.math}}<br>{{unit.english}}{{unit.kiswahili}}{{unit.science}}{{unit.socialStudy}}{{unit.cre}}{{unit.studentId}}</h1>-->
     <p>Here are all the units listed with the students score:</p>
     <ul>
         {{#each teachers}}
-            <!--            <a href="/units/{{unit.studentId}}/edit">{{math}}{{english}} {{kiswahili}}{{science}}{{socialStudy}}{{cre}}{{studentId}}</a>-->
-            <!--            <li>-->
+
             <p><a href="/teachers/{{teacher.studentId}}/students/{{id}}">{{name}}{{comment}}{{studentId}}</a></p>
-            <!--            </li>-->
+
         {{/each}}
     </ul>
     <button>    <a href="/units/{{unit.studentId}}/edit">Edit teachers</a><br>

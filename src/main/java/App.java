@@ -118,18 +118,14 @@ public class App {
         }, new HandlebarsTemplateEngine());
         //get: show a form to update a student
 
-        get("/units/:unit_id/student/:student_id/edit", (req, res) -> {
+        get("/units/:id/edit", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            Student   student = studentDao.findById(Integer.parseInt("id"));
-            model.put("student",student);
-            model.put("editStudent", student);
-            List<Unit> units = unitDao.getAllUnitsByStudentId(Integer.parseInt("id"));
-            model.put("unit",units);
+            List<Unit> units = unitDao.getAllUnitsByStudentId(Integer.parseInt(req.params("id")));
+            unitDao.getAll();
+            model.put("units",units);
             model.put("editUnit", true);
             return new ModelAndView(model, "unit-form.hbs");
         }, new HandlebarsTemplateEngine());
-
-        //        //get: show an individual unit that is nested in a student
 
         get("/units/:unit_id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -139,6 +135,17 @@ public class App {
             model.put("units", unitDao.getAll()); //refresh list of links for navbar
             return new ModelAndView(model, "unit-detail.hbs"); //individual task page.
         }, new HandlebarsTemplateEngine());
+
+        get("/units", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Unit> units = unitDao.getAllUnitsByStudentId(Integer.parseInt("id"));
+            model.put("unit",units);
+            model.put("editUnit", true);
+            return new ModelAndView(model, "unit-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        //        //get: show an individual unit that is nested in a student
+
 
         get("/teachers/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
