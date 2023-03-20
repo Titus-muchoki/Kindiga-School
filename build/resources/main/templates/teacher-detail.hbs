@@ -1,17 +1,16 @@
 {{#partial "content"}}
-    <p>Here are all the units listed with the students score:</p>
+    <h1>{{teacher.comment}}</h1>
+    <p>Here are all the students listed with their teachers:</p>
     <ul>
-        {{#each teachers}}
-
-            <p><a href="/teachers/{{teacher.studentId}}/students/{{id}}">{{name}}{{comment}}{{studentId}}</a></p>
-
+        {{#each students}}
+            <li>
+                <p><a href="/teachers/{{teacher.id}}/students/{{id}}">{{description}} </a></p>
+            </li>
         {{/each}}
     </ul>
-    <button>    <a href="/units/{{unit.studentId}}/edit">Edit teachers</a><br>
+    <button>    <a href="/teachers/{{teacher.id}}/edit">Edit this comment</a><br>
     </button>
-    <button>
-        <a href="/units/{{unit.studentId}}/delete">DELETE this teachers</a>
-    </button>
+    <a href="/teachers/{{teacher.id}}/delete">DELETE this teacher</a>
 {{/partial}}
 
 {{> layout.hbs}}

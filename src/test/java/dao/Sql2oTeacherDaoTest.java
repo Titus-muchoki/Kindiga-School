@@ -2,7 +2,6 @@ package dao;
 
 import models.Student;
 import models.Teacher;
-import models.Unit;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -48,22 +47,11 @@ public class Sql2oTeacherDaoTest {
     public void getAll() throws Exception {
         Teacher teacher = setupTeacher();
         Teacher teacher1 = setupTeacher();
-        assertNotEquals(0, teacherDao.getAll().size());
+        assertEquals(2, teacherDao.getAll().size());
     }
     @Test
-    public void getAllStudentsByTeachersReturnsStudentsCorrectly() {
-        Teacher teacher = setupTeacher();
-        teacherDao.add(teacher);
-        int studentId = teacher.getId();
-        Student newStudent = new Student("", "" , "");
-        Student otherStudent = new Student("", "","");
-        Student  thirdStudent = new Student("","","");
-        studentDao.add(newStudent);
-        studentDao.add(otherStudent);
-        assertNotEquals(2, teacherDao.getAllTeachersByStudentId( studentId).size());
-        assertFalse(teacherDao.getAllTeachersByStudentId( studentId).contains(newStudent));
-        assertFalse(teacherDao.getAllTeachersByStudentId( studentId).contains(otherStudent));
-        assertFalse(teacherDao.getAllTeachersByStudentId( studentId).contains(thirdStudent)); //things are accurate!
+    public void noTeachersReturnsEmptyList() throws Exception {
+        assertEquals(0, teacherDao.getAll().size());
     }
     @Test
     public void deleteById() throws Exception{
@@ -80,14 +68,53 @@ public class Sql2oTeacherDaoTest {
         teacherDao.clearAll();
         assertEquals(0, teacherDao.getAll().size());
     }
+    @Test
+    public void addTeachersToStudentAddsCorrectly() throws Exception {
+
+        Student testStudent = setUpStudent();
+
+        studentDao.add(testStudent);
+
+        Teacher testTeacher = setupTeacher();
+
+        teacherDao.add(testTeacher);
+
+        teacherDao.addTeacherToStudent(testTeacher, testStudent);
+        teacherDao.addTeacherToStudent(testTeacher, testStudent);
+
+        assertEquals(2, teacherDao.getAllStudentsByTeacher(testTeacher.getId()).size());
+    }
+    @Test
+    public void deleteingStudentAlsoUpdatesJoinTable() throws Exception {
+        Teacher testTeacher  = new Teacher("Seafood");
+        teacherDao.add(testTeacher);
+
+        Student testStudent = setUpStudent();
+        studentDao.add(testStudent);
+
+        studentDao.addStudentToTeacher(testStudent,testTeacher);
+
+        studentDao.deleteById(testStudent.getId());
+        assertEquals(0, studentDao.getAllTeachersByStudent(testStudent.getId()).size());
+    }
+    @Test
+    public void updateChangesTeacherContent() {
+        String initialDescription = "viral";
+        Teacher teacher = new Teacher(initialDescription);
+        teacherDao.add(teacher);
+        teacherDao.update(teacher.getId(),"Cleaning");
+        Teacher updatedComment = teacherDao.findById(teacher.getId());
+        assertNotEquals(initialDescription, updatedComment.getComment());
+    }
+
     //HELPER
     public Teacher setupTeacher(){
-        Teacher teacher = new Teacher("muchoki","any",1);
+        Teacher teacher = new Teacher("muchoki");
         teacherDao.add(teacher);
         return teacher;
     }
     public Student setUpStudent(){
-        Student student = new Student("kajela","0717553340","titoyut@gamil.com");
+        Student student = new Student("kajela","0717553340","titoyut@gamil.com", 1);
         studentDao.add(student);
         return student;
     }

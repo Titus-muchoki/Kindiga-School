@@ -1,10 +1,12 @@
 package dao;
 
+import models.Student;
 import models.Unit;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sql2oUnitDao implements UnitDao {
@@ -37,22 +39,21 @@ public class Sql2oUnitDao implements UnitDao {
     }
 
     @Override
-    public List<Unit> getAllUnitsByStudentId(int studentId) {
-        try(Connection con = sql2o.open()) {
+    public List<Unit> getAllUnitsByStudents(int studentId) {
+        try (Connection con = sql2o.open()) {
             return con.createQuery("SELECT * FROM units WHERE studentId = :studentId")
                     .addParameter("studentId", studentId)
                     .executeAndFetch(Unit.class);
         }
     }
-
     @Override
     public void deleteById(int id) {
         String sql = "DELETE from units WHERE id = :id";
-        try (Connection con = sql2o.open()){
-            con.createQuery(sql, true)
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
                     .addParameter("id", id)
                     .executeUpdate();
-        }catch (Sql2oException ex){
+        } catch (Sql2oException ex) {
             System.out.println(ex);
         }
     }

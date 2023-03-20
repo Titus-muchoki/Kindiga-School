@@ -3,15 +3,11 @@ package models;
 import java.util.Objects;
 
 public class Teacher {
-private String name;
 private String comment;
-private int studentId;
 private int id;
 
-    public Teacher(String name, String comment, int studentId) {
-        this.name = name;
+    public Teacher(String comment) {
         this.comment = comment;
-        this.studentId = studentId;
     }
 
     @Override
@@ -19,20 +15,12 @@ private int id;
         if (this == o) return true;
         if (!(o instanceof Teacher)) return false;
         Teacher teacher = (Teacher) o;
-        return studentId == teacher.studentId && id == teacher.id && Objects.equals(name, teacher.name) && Objects.equals(comment, teacher.comment);
+        return id == teacher.id && Objects.equals(comment, teacher.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, comment, studentId, id);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return Objects.hash(comment, id);
     }
 
     public String getComment() {
@@ -42,15 +30,6 @@ private int id;
     public void setComment(String comment) {
         this.comment = comment;
     }
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
-
     public int getId() {
         return id;
     }

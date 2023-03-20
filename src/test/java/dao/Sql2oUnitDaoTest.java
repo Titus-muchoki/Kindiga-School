@@ -50,20 +50,15 @@ public class Sql2oUnitDaoTest {
         assertNotEquals(0, unitDao.getAll().size());
     }
     @Test
-    public void getAllStudentsByUnitReturnsStudentsCorrectly() {
-        Unit unit = setupUnits();
-        unitDao.add(unit);
-        int studentId = unit.getId();
-        Student newStudent = new Student("", "" , "");
-        Student otherStudent = new Student("", "","");
-        Student  thirdStudent = new Student("","","");
-        studentDao.add(newStudent);
-        studentDao.add(otherStudent);
-        assertNotEquals(2, unitDao.getAllUnitsByStudentId( studentId).size());
-        assertFalse(unitDao.getAllUnitsByStudentId( studentId).contains(newStudent));
-        assertFalse(unitDao.getAllUnitsByStudentId( studentId).contains(otherStudent));
-        assertFalse(unitDao.getAllUnitsByStudentId( studentId).contains(thirdStudent)); //things are accurate!
+    public void getAllUnitsByStudent() throws Exception {
+        Student testStudent = setUpStudent();
+        Student otherStudent = setUpStudent(); //add in some extra data to see if it interferes
+        Unit unit = setupUnitForStudent(testStudent);
+        Unit unit1 = setupUnitForStudent(testStudent);
+        Unit unitForOtherStudent = setupUnitForStudent(otherStudent);
+        assertEquals(2, unitDao.getAllUnitsByStudents(testStudent.getId()).size());
     }
+
     @Test
     public void deleteById() throws Exception{
         Unit unit = setupUnits();
@@ -81,12 +76,18 @@ public class Sql2oUnitDaoTest {
     }
     //HELPERS
     public Unit  setupUnits(){
-        Unit unit = new Unit("math","english","kiswa","scince","socialStudy","cre",1);
+        Unit unit = new Unit("math","english","kiswa","scince","socialStudy","cre", 1);
         unitDao.add(unit);
         return unit;
     }
+    public Unit setupUnitForStudent(Student student) {
+        Unit unit = new Unit( "math","english","kiswa","scince","socialStudy","cre",student.getId());
+        unitDao.add(unit);
+        return unit;
+    }
+
     public Student setUpStudent(){
-        Student student = new Student("kajela","0717553340","titoyut@gamil.com");
+        Student student = new Student("kajela","0717553340","titoyut@gamil.com", 1);
         studentDao.add(student);
         return student;
     }

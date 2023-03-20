@@ -16,22 +16,12 @@ public class TeacherTest {
 
     }
     @Test
-    public void  getNameReturnsCorrectly() throws Exception{
-        Teacher teacher = setupTeacher();
-        assertEquals("muchoki", teacher.getName());
-    }
-    @Test
     public void getCommentReturnsComment() throws Exception{
         Teacher teacher = setupTeacher();
-        assertEquals("any", teacher.getComment());
-    }
-    @Test
-    public void getStudentIdReturnsStudentId() throws Exception{
-        Teacher teacher = setupTeacher();
-        assertEquals(1, teacher.getStudentId());
+        assertEquals("good", teacher.getComment());
     }
     //HELPERS
     public Teacher setupTeacher()throws Exception{
-        return new Teacher("muchoki","any",1);
+        return new Teacher("good");
     }
 }

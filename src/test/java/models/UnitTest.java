@@ -47,12 +47,12 @@ public class UnitTest {
         assertEquals("cre", unit.getCre());
     }
     @Test
-    public void getStudentIdReturnsStudentId() throws Exception{
+    public void getStudentIdReturnsCorrectly() throws Exception{
         Unit unit = setupUnit();
         assertEquals(1, unit.getStudentId());
     }
     //HELPERS
     public Unit setupUnit() throws Exception{
-        return new Unit("math","english","kiswa","scince","socialStudy","cre",1);
+        return new Unit("math","english","kiswa","scince","socialStudy","cre", 1);
     }
 }

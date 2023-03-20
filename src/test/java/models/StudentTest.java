@@ -50,8 +50,13 @@ public class StudentTest {
         student.setEmail("tito@gmail.com");
         assertEquals("tito@gmail.com", student.getEmail());
     }
+    @Test
+    public void getTeacherIdReturnsCorrectly() throws Exception{
+        Student student = setupStudent();
+        assertEquals(1, student.getTeacherId());
+    }
     // HELPERS
     public Student setupStudent(){
-        return new Student("janet","0717553340","kajela@gmail.com");
+        return new Student("janet","0717553340","kajela@gmail.com", 1);
     }
 }

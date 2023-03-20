@@ -41,18 +41,20 @@ public class App {
 
         get("/students/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            List<Student> students = studentDao.getAll(); //refresh list of links for navbar
-            model.put("students", students);
-            return new ModelAndView(model, "student-form.hbs"); //new layout
+            List<Teacher> teachers = teacherDao.getAll();
+            model.put("teachers", teachers);
+            return new ModelAndView(model, "student-form.hbs");
         }, new HandlebarsTemplateEngine());
-        //post: process a form to create a new student
 
-        post("/students", (req, res) -> { //new
+        post("/students", (req, res) -> { //URL to make new task on POST route
             Map<String, Object> model = new HashMap<>();
-            String name = req.queryParams("name");
-            String phoneNumber = req.queryParams("phoneNumber");
-            String email = req.queryParams("email");
-            Student  newStudent = new Student(name,phoneNumber,email);
+            List<Teacher> allTeachers = teacherDao.getAll();
+            model.put("teachers", allTeachers);
+            String newName = req.queryParams("name");
+            String newPhoneNumber = req.queryParams("phoneNumber");
+            String newEmail = req.queryParams("email");
+            int teacherId = Integer.parseInt(req.queryParams("teacherId"));
+            Student newStudent = new Student(newName, newPhoneNumber, newEmail, teacherId);        //See what we did with the hard coded categoryId?
             studentDao.add(newStudent);
             res.redirect("/");
             return null;
@@ -69,29 +71,47 @@ public class App {
             return new ModelAndView(model, "student-detail.hbs"); //individual task page.
         }, new HandlebarsTemplateEngine());
 
-        //get: show a form to update a student
-
-        get("/students/:id/edit", (req, res) -> {
+;
+        get("/students/:student_id/units", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-             Student   student = studentDao.findById(Integer.parseInt(req.params("id")));
-            studentDao.getAll();
-            model.put("student",student);
-            model.put("editStudents", true);
-            return new ModelAndView(model, "student-form.hbs");
+            int studentId = Integer.parseInt(req.params("student_id"));
+            Student studentToFind = studentDao.findById(studentId);
+            model.put("student", studentToFind);
+            List<Unit> allUnits = unitDao.getAllUnitsByStudents(Integer.parseInt(req.params("student_id")));
+            unitDao.getAll();
+            model.put("unit", allUnits);
+            model.put("editUnit", true); //refresh list of links for navbar
+            return new ModelAndView(model, "unit-form.hbs"); //individual task page.
         }, new HandlebarsTemplateEngine());
 
-        //post: process a form to update  a  student
-
-        post("/students/:id", (req, res) -> { //URL to update task on POST route
+        post("/students/:studentId/units/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int studentToEditId = Integer.parseInt(req.params("id"));
-            String newName = req.queryParams("name");
-            String newPhoneNumber = req.queryParams("phoneNumber");
-            String newEmail = req.queryParams("email");
-            studentDao.update(studentToEditId,newName,newPhoneNumber,newEmail);  // remember the hardcoded categoryId we placed? See what we've done to/with it?
+            String math = req.queryParams("math");
+            String english = req.queryParams("english");
+            String kiswahili = req.queryParams("kiswahili");
+            String science = req.queryParams("science");
+            String socialStudy = req.queryParams("socialStudy");
+            String cre = req.queryParams("cre");
+            int studentId = Integer.parseInt(req.queryParams("studentId"));
+            Unit newUnit = new Unit(math, english, kiswahili, science, socialStudy, cre, studentId);
+            unitDao.add(newUnit);
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
+
+
+        //get: show a form to update a student and units
+
+        get("/units/:id/edit", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Unit> units = unitDao.getAllUnitsByStudents(Integer.parseInt(req.params("id")));
+            unitDao.getAll();
+            model.put("units", units);
+            model.put("editUnit", true);
+            return new ModelAndView(model, "unit-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+
         //get: show a form to create a new student
 
         get("/units/new", (req, res) -> {
@@ -111,35 +131,36 @@ public class App {
             String socialStudy = req.queryParams("socialStudy");
             String cre = req.queryParams("cre");
             int studentId = Integer.parseInt(req.queryParams("studentId"));
-            Unit  newUnit = new Unit(math,english,kiswahili,science,socialStudy,cre,studentId);
+            Unit newUnit = new Unit(math, english, kiswahili, science, socialStudy, cre, studentId);
             unitDao.add(newUnit);
             res.redirect("/");
             return null;
-        }, new HandlebarsTemplateEngine());
-        //get: show a form to update a student
-
-        get("/units/:id/edit", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            List<Unit> units = unitDao.getAllUnitsByStudentId(Integer.parseInt(req.params("id")));
-            unitDao.getAll();
-            model.put("units",units);
-            model.put("editUnit", true);
-            return new ModelAndView(model, "unit-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         get("/units/:unit_id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             int idOfUnitToFind = Integer.parseInt(req.params("unit_id")); //pull id - must match route segment
-            List<Unit> foundUnit = unitDao.getAllUnitsByStudentId(idOfUnitToFind);//use it to find task
+            List<Unit> foundUnit = unitDao.getAllUnitsByStudents(idOfUnitToFind);//use it to find task
             model.put("unit", foundUnit); //add it to model for template to display
             model.put("units", unitDao.getAll()); //refresh list of links for navbar
             return new ModelAndView(model, "unit-detail.hbs"); //individual task page.
         }, new HandlebarsTemplateEngine());
 
+        //get: show a form to update a student and units
+
+        get("/units/:id/edit", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Unit> units = unitDao.getAllUnitsByStudents(Integer.parseInt(req.params("id")));
+            unitDao.getAll();
+            model.put("units", units);
+            model.put("editUnit", true);
+            return new ModelAndView(model, "unit-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
         get("/units", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            List<Unit> units = unitDao.getAllUnitsByStudentId(Integer.parseInt("id"));
-            model.put("unit",units);
+            List<Unit> units = unitDao.getAllUnitsByStudents(Integer.parseInt("id"));
+            model.put("unit", units);
             model.put("editUnit", true);
             return new ModelAndView(model, "unit-form.hbs");
         }, new HandlebarsTemplateEngine());
@@ -157,25 +178,87 @@ public class App {
 
         post("/teachers", (req, res) -> { //new
             Map<String, Object> model = new HashMap<>();
-            String name = req.queryParams("name");
+//            String name = req.queryParams("name");
             String comment = req.queryParams("comment");
-            int studentId = Integer.parseInt(req.queryParams("studentId"));
-            Teacher  newTeacher = new Teacher(name,comment,studentId);
+//            int studentId = Integer.parseInt(req.queryParams("studentId"));
+            Teacher newTeacher = new Teacher(comment);
             teacherDao.add(newTeacher);
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
         //        //get: show an individual unit that is nested in a student
 
-        get("/teachers/:teacher_id", (req, res) -> {
+
+        get("/teachers/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfTeacherToFind = Integer.parseInt(req.params("teacher_id")); //pull id - must match route segment
-            List<Teacher> foundTeacher = teacherDao.getAllTeachersByStudentId(idOfTeacherToFind);//use it to find task
-            model.put("teacher", foundTeacher); //add it to model for template to display
+            int idOfTeacherToFind = Integer.parseInt(req.params("id")); //new
+            Teacher foundTeacher = teacherDao.findById(idOfTeacherToFind);
+            model.put("teacher", foundTeacher);
+            List<Student> allStudentByTeachers = teacherDao.getAllStudentsByTeacher(idOfTeacherToFind);
+            model.put("students", allStudentByTeachers);
             model.put("teachers", teacherDao.getAll()); //refresh list of links for navbar
-            return new ModelAndView(model, "teacher-detail.hbs"); //individual task page.
+            return new ModelAndView(model, "teacher-detail.hbs"); //new
+        }, new HandlebarsTemplateEngine());
+        //get: show a form to update a category
+
+        get("/teachers/:id/edit", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("editTeacher", true);
+            Teacher teacher = teacherDao.findById(Integer.parseInt(req.params("id")));
+            model.put("teacher", teacher);
+            model.put("teachers", teacherDao.getAll()); //refresh list of links for navbar
+            return new ModelAndView(model, "teacher-form.hbs");
         }, new HandlebarsTemplateEngine());
 
+        post("/teachers/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfOfficerToEdit = Integer.parseInt(req.params("id"));
+            String newComment = req.queryParams("newTeacherComment");
+            teacherDao.update(idOfOfficerToEdit, newComment);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
+
+        get("/teachers/:teacher_id/students/:student_id/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfStudentToDelete = Integer.parseInt(req.params("student_id"));
+            studentDao.deleteById(idOfStudentToDelete);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
+
+
+        get("/teachers/:teacher_id/students/:student_id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfStudentToFind = Integer.parseInt(req.params("student_id")); //pull id - must match route segment
+            Student foundStudent = studentDao.findById(idOfStudentToFind); //use it to find task
+            int idOfTacherToFind = Integer.parseInt(req.params("teacher_id"));
+            Teacher foundTeacher = teacherDao.findById(idOfTacherToFind);
+            model.put("teacher", foundTeacher);
+            model.put("student", foundStudent); //add it to model for template to display
+            model.put("teachers", teacherDao.getAll()); //refresh list of links for navbar
+            return new ModelAndView(model, "student-detail.hbs"); //individual task page.
+        }, new HandlebarsTemplateEngine());
+        get("/students/:id/edit", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Teacher> allTeachers = teacherDao.getAll();
+            model.put("teachers", allTeachers);
+            Student student = studentDao.findById(Integer.parseInt(req.params("id")));
+            model.put("student", student);
+            model.put("editStudent", true);
+            return new ModelAndView(model, "student-form.hbs");
+        }, new HandlebarsTemplateEngine());
+        post("/students/:id", (req, res) -> { //URL to update task on POST route
+            Map<String, Object> model = new HashMap<>();
+            int studentToEditId = Integer.parseInt(req.params("id"));
+            String newName = req.queryParams("name");
+            String newPhoneNumber = req.queryParams("phoneNumber");
+            String newEmail = req.queryParams("email");
+            int teacherId = Integer.parseInt(req.queryParams("teacherId"));
+            studentDao.update(studentToEditId, newName, newPhoneNumber, newEmail, teacherId);  // remember the hardcoded categoryId we placed? See what we've done to/with it?
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
 
     }
 }

@@ -1,5 +1,6 @@
 package dao;
 
+import models.Student;
 import models.Unit;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface UnitDao {
     void add(Unit unit);
     //READ
     List<Unit> getAll();
-    List<Unit> getAllUnitsByStudentId(int studentId);
+    List<Unit> getAllUnitsByStudents(int studentId);
 //    Unit findById(int id);
     //UPDATE
     //DELETE

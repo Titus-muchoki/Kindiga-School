@@ -9,8 +9,8 @@ public class Unit {
     private String science;
     private String socialStudy;
     private String cre;
-    private int studentId;
     private  int id;
+    private int studentId;
 
     public Unit(String math, String english, String kiswahili, String science, String socialStudy, String cre, int studentId) {
         this.math = math;
@@ -27,12 +27,12 @@ public class Unit {
         if (this == o) return true;
         if (!(o instanceof Unit)) return false;
         Unit unit = (Unit) o;
-        return studentId == unit.studentId && id == unit.id && Objects.equals(math, unit.math) && Objects.equals(english, unit.english) && Objects.equals(kiswahili, unit.kiswahili) && Objects.equals(science, unit.science) && Objects.equals(socialStudy, unit.socialStudy) && Objects.equals(cre, unit.cre);
+        return id == unit.id && studentId == unit.studentId && Objects.equals(math, unit.math) && Objects.equals(english, unit.english) && Objects.equals(kiswahili, unit.kiswahili) && Objects.equals(science, unit.science) && Objects.equals(socialStudy, unit.socialStudy) && Objects.equals(cre, unit.cre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(math, english, kiswahili, science, socialStudy, cre, studentId, id);
+        return Objects.hash(math, english, kiswahili, science, socialStudy, cre, id, studentId);
     }
 
     public String getMath() {
@@ -94,7 +94,6 @@ public class Unit {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }

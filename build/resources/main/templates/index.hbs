@@ -3,7 +3,10 @@
 
     {{#if students}}
         {{#each students }}
-            <p><a href="/students/{{id}}">{{name}}{{phoneNumber}}{{email}}</a></p>
+<!--            <p><a href="/officers/{{officerId}}/patients/{{id}}">{{name}}</a></p>-->
+
+            <!--            <p><a href="/categories/{{categoryId}}/bookings/{{id}}">{{description}}</a></p>-->
+            <p><a href="/teachers/{{teacherId}}/students/{{id}}">{{name}}{{phoneNumber}}{{email}}</a></p>
         {{/each}}
     {{else}}
         <p>No student!</p>
